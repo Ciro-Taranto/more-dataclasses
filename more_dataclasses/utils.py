@@ -17,9 +17,10 @@ def nested_replace(dataclass_instance: T, /, **changes) -> T:
     new_foo = nested_replace(foo, **{'bar.baz': value}) which is roughly equivalent to:
     new_foo = replace(foo, bar=replace(foo.bar, baz=value)).
 
-    NOTE: replace instantiates new objects and some deepcopy might be involved. Both deepcopy and
-    the instantiation of a new dataclass are slow, hence it is not recommended to use this function
-    extensively if latency is an issue and it has to be applied either to many instances or to
+    NOTE: replace instantiates new objects which is slow for dataclasses.
+    In this implementation, the instantiation happens several times,
+    ence it is not recommended to use this function extensively
+    if latency is an issue and it has to be applied either to many instances or too
     many nested fields.
     """
     if all("." not in change for change in changes):
