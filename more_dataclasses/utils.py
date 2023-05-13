@@ -1,6 +1,5 @@
 from typing import Dict, Any, Type, TypeVar
 from dataclasses import replace, is_dataclass, fields
-from copy import deepcopy
 
 T = TypeVar("T")
 
@@ -27,7 +26,7 @@ def nested_replace(dataclass_instance: T, /, **changes) -> T:
         return replace(dataclass_instance, **changes)
     if not is_dataclass(dataclass_instance):
         raise TypeError("nested_replace() should be called on dataclass instances")
-    replaced_dataclass = deepcopy(dataclass_instance)
+    replaced_dataclass = replace(dataclass_instance, **{})
     for key, val in changes.items():
         shallow_field_name, _, deep_field_names = key.partition(".")
         shallow_field = getattr(dataclass_instance, shallow_field_name)
