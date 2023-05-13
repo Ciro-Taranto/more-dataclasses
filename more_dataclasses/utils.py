@@ -33,7 +33,6 @@ def nested_replace(dataclass_instance: T, /, **changes) -> T:
         if not deep_field_names:
             new_shallow_field = val
         else:
-            # is_dataclass(shallow_field):
             new_shallow_field = nested_replace(shallow_field, **{deep_field_names: val})
         replaced_dataclass = replace(
             replaced_dataclass, **{shallow_field_name: new_shallow_field}
