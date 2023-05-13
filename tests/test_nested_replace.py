@@ -47,3 +47,11 @@ def test_level_two_nesting(baz: Baz):
         bar=replace(baz.bar, foo=Foo(67)),
     )
     assert replaced_baz == expected_baz
+
+
+def test_level_two_nesting_with_two_fields(baz: Baz):
+    replaced_baz = nested_replace(baz, **{"bar.foo.foo": 67, "bar.foo.paz": "maz"})
+    expected_baz = baz
+    baz.bar.foo.foo = 67
+    baz.bar.foo.paz = "maz"
+    assert replaced_baz == expected_baz

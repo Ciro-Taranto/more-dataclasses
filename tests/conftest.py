@@ -5,6 +5,7 @@ from dataclasses import dataclass
 @dataclass
 class Foo:
     foo: int = 1
+    paz: str = "paz"
 
 
 @dataclass(frozen=True)

@@ -18,9 +18,8 @@ def nested_replace(dataclass_instance: T, /, **changes) -> T:
     new_foo = replace(foo, bar=replace(foo.bar, baz=value)).
 
     NOTE: replace instantiates new objects which is slow for dataclasses.
-    In this implementation, the instantiation happens several times,
-    hence it is not recommended to use this function extensively
-    if latency is an issue or with deep nestings.
+    If latency is an issue or with deep nestings nested_replace (and nested_dataclasses)
+    might not be a good idea.
     """
     if not is_dataclass(dataclass_instance):
         raise TypeError("nested_replace() should be called on dataclass instances")
@@ -31,7 +30,10 @@ def nested_replace(dataclass_instance: T, /, **changes) -> T:
         if not deep_field_names:
             new_shallow_field = val
         else:
-            new_shallow_field = nested_replace(shallow_field, **{deep_field_names: val})
+            new_shallow_field = nested_replace(
+                replaced_fields.get(shallow_field_name, shallow_field),
+                **{deep_field_names: val},
+            )
         replaced_fields[shallow_field_name] = new_shallow_field
     replaced_dataclass = replace(dataclass_instance, **replaced_fields)
     return replaced_dataclass
