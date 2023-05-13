@@ -39,7 +39,7 @@ def nested_replace(dataclass_instance: T, /, **changes) -> T:
     return replaced_dataclass
 
 
-def from_nested_dict(input_dictionary: Dict[str, Any], dataclass_type: Type):
+def from_nested_dict(input_dictionary: Dict[str, Any], dataclass_type: Type[T]) -> T:
     """
     Instantiate a dataclass from a nested dict.
 
