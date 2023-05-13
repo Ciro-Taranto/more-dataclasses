@@ -50,7 +50,6 @@ def from_nested_dict(input_dictionary: Dict[str, Any], dataclass_type: Type):
     This function allows to support also the inverse operation:
     new_obj = from_nested_dict(dataclasses.asdict(obj), type(obj)).
     """
-
     if not is_dataclass(dataclass_type):
         raise TypeError("from_nested_dict() should be called on dataclass instances")
     dataclass_fields = {field.name: field.type for field in fields(dataclass_type)}
