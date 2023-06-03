@@ -1,6 +1,6 @@
 from types import new_class
 from typing import Type, TypeVar
-from dataclasses import dataclass, fields, is_dataclass
+from dataclasses import fields, is_dataclass
 from functools import partial
 from functools import lru_cache
 
